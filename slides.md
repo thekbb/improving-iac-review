@@ -1,7 +1,14 @@
 ---
 title: "Improving IaC Reviews: Better Signal, Less Noise in Pull Requests"
 duration: 20min
+class: title-slide
 ---
+
+<style>
+.title-slide {
+  text-align: center;
+}
+</style>
 
 # Improving IaC Reviews
 
