@@ -179,5 +179,3 @@ Outcomes. Line: "Faster reviews, fewer surprises, and a lot less 'wait, what did
 Close with the thesis. Line: "Reviewers are us. We need better signals to make the hard calls. AI can draft the change.
 We still sign for the blast radius."
 -->
-
----
