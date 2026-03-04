@@ -18,6 +18,47 @@ html, body {
 .slidev-layout.compact {
   font-size: 0.9em;
 }
+/* Increase gap between title and body for specific slides */
+.slidev-layout.gap h1 + p {
+  margin-top: 1.1em;
+}
+/* Styled quote for emphasis */
+.slidev-page .slidev-layout .quote {
+  margin: 0.9em 0 1.1em 0;
+  padding: 0.9em 1.2em;
+  border-left: 6px solid #6ad3ff;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.2em;
+  text-align: left;
+  color: #e8eef2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+.slidev-page .slidev-layout .quote-text {
+  line-height: 1.6;
+  margin-bottom: 0.5em;
+}
+.slidev-page .slidev-layout .quote-cite {
+  font-style: normal;
+  font-size: 0.9em;
+  opacity: 0.85;
+  padding-left: 0.6em;
+}
+blockquote p {
+  margin: 0.2em 0;
+}
+blockquote strong {
+  font-style: normal;
+  font-weight: 600;
+}
+blockquote cite {
+  display: block;
+  margin-top: 0.4em;
+  font-size: 0.85em;
+  opacity: 0.85;
+}
 /* Presenter notes only */
 .grid-section.note .prose {
   font-size: 80% !important;
@@ -34,132 +75,104 @@ losing a few tens of millions of records.
 
 I tried hard. I messed up.
 
-Transition: "That was the moment I realized the system was setting reviewers up to fail."
+Transition: "I think of that often, and reviewing Terraform still scares me."
 -->
 
 ---
 
-# Why Terraform PRs Feel Bad
+# Terraform Reviews Require Predicting the Future
 
-- Infra keeps getting bigger and more complex
-- Reviewers must predict impact and risk
-- Lots of "LGTM I guess"
+<div class="quote">
+<div class="quote-text">"It's tough to make predictions, especially about the future."</div>
+<div class="quote-cite">— Yogi Berra</div>
+</div>
 
-<!--
-"Bigger systems mean bigger diffs, and bigger diffs make confidence go down fast."
-Context is everything.
-
-Most reviews rely on things in other repos, modules, or external systems.
-
-Transition: "So we need to talk about what the code can and cannot tell us."
--->
-
----
-
-# HCL Is Good at Intent, Bad at Impact
-
-- Declares what infra should be
-- Logic and modules can hide meaning
-- The diff is hard to parse mentally
+Terraform reviews are about impact, not syntax.
 
 <!--
-Contrast intent vs impact.
+Systems grow.
+Diffs grow.
+Confidence drops.
 
-Line: "HCL is great at saying what we want, not great at showing what will happen."
-
-Line: "Who would take the bet that they can describe what will happen at AWS while looking at TF
-that is an instance of an external module, which includes another external module and has a count?"
-
-Transition: "That is why the plan is not optional. But we hide it."
--->
-
----
-
-# The Plan Is Usually Missing
-
-- Buried in CI logs, several clicks away,  in uncolored plain text
-- Only works on a laptop (which is a whole other problem)
-- Or cannot run locally, or see in CI...  So you YOLO
-
-<!--
-Line: "The plan is always somewhere. Make it visible at the right time."
-
-Line: "Reviewing Terraform without the plan is driving without headlights at night."
-
-Transition: "And even with a plan, reviewers are still juggling multiple realities."
+Transition: "So let's name the mental model."
 -->
 
 ---
 
 # Three Realities at Once
 
-- HCL diff is intent
-- Terraform state is last known assumptions
-- Live infra is actual reality
+- Intent: HCL diff
+- State: Terraform state
+- Reality: live infra
 
 <!--
-Introduce the mental load.
+Three realities.
+One reviewer.
+This is the job.
 
-Line: "Reviewers are juggling intent, state, and reality at the same time."
-
-"This is a ton to think on."
-
-"They also have their own work"
-
-Line: "This is how you delete all the data in OpenSearch."
-
-Transition: "When the projection is missing, signal collapses."
+Transition: "HCL gives us intent, but intent is not impact."
 -->
 
 ---
+class: gap
+---
 
-# Why Signal Is So Low
+# HCL Shows Intent
 
-- Terraform plan connects intent to impact
-- It _always_ exists but is all too often not visible in PRs
-- Hidden blast radius drives guesswork
-- So we need key info, like the plan, _**in**_ the PR
+Intent alone does not show impact.
 
 <!--
-Line: "The plan is the projection. We just hide it from the people making the decision."
+HCL says what we want.
+It does not show what will happen.
 
-Line: "The tooling is improvable. We can fix it."
-
-Transition: "And no, the answer is not 'train reviewers harder.'"
+Transition: "We need a projection."
 -->
 
 ---
+class: gap
+---
 
-# Peer Review Remains the Gold Standard
+# Terraform Plan = Projection
 
-- Best place for learning and shared context
-- Best place to prevent badness
-- Still true when AI generates the HCL (If not more so)
+Projection connects intent to expected impact.
 
 <!--
-- AI speeds creation, not accountability.
-- Machine generated HCL makes intent thinner.
-- Machines can catch patterns, humans bring context.
+The plan is the projection.
+It connects intent to impact.
 
-Line: "Even if AI writes the HCL, humans still own the consequences. That is why review matters more."
-
-Transition: "So the fix is system-level, not person-level."
+Transition: "Now notice where we hide it."
 -->
 
 ---
+class: gap
+---
 
-# Fix the Tooling/System, Not the People
+# We Hide the Projection
+
+The plan exists, but it is not in the PR.
+
+<!--
+Buried in CI logs.
+Or stuck on a laptop.
+So reviews become guesswork.
+
+Transition: "Fix the system, not the humans."
+-->
+
+---
+class: gap
+---
+
+# Fix the System, Not the People
 
 - Better inputs, better reviews
-- Automation beats memory
-- Pattern: surface impact at the decision point
+- Surface impact at decision time
 
 <!--
-Line: "We do not need superhero reviewers. We need better instruments."
+We do not need superhero reviewers.
+We need better instruments.
 
-Line: "I'm going to show some example tooling that helps me. The pattern is surfacing impact at the decision point."
-
-Transition: "Here are two concrete review aids."
+Transition: "Here are two examples of the pattern."
 -->
 
 ---
@@ -168,31 +181,28 @@ class: compact
 
 # Review Aids
 
-Two examples of a bigger pattern
+Pattern: surface impact at decision time
 
 ## [Terraform Plan Commenter](https://github.com/marketplace/actions/terraform-plan-commenter)
 
-- Run plan in CI
-- Post a clear summary in the PR
+- Summary in the PR
+- Full plan linked
 
 ## [AWS IAM `*` expander](https://github.com/marketplace/actions/expand-aws-iam-wildcards)
 
-- Expand `*` in an inline comment
-- Links to AWS documentation
+- Expand `*` inline
+- Link to AWS docs
 
 <!--
-Walk the audience through what "good" looks like.
-* Summary first
-* Updates the same content on subsequent runs
-* link to real plan in action log if > comment size
-* expands the `*`
-* link to aws
-
-Line: "These are two examples. The real pattern is: put impact in context for reviewers."
+Two examples.
+Same pattern.
+Impact in context.
 
 Transition: "Let me show you one PR where both happen."
 -->
 
+---
+class: gap
 ---
 
 # Live PR Example
@@ -205,41 +215,46 @@ A real and totally not contrived example:
 [`thekbb/shit-bruce-says#17`](https://github.com/thekbb/shit-bruce-says/pull/17)
 
 <!--
-Line: "This PR shows both the plan comment and the IAM wildcard expansion in one place."
-
-Line: "I don't have to hunt and find - or skip the research"
-
-Line: "The goal is not this PR. The goal is impact in every review."
+No hunting in CI logs.
+Impact is visible at decision time.
 
 Transition: "When signal improves, review behavior changes."
 -->
 
 ---
+class: gap
+---
 
 # What Changes When Signal Improves
 
+- Less "LGTM I guess"
 - Faster reviews
-- Fewer risky approvals
 - More confident merges
-- Fewer pages (hopefully)
 
 <!--
-Line: "Faster reviews, fewer surprises, and a lot less 'wait, what did we just approve?'"
+Fewer surprises.
+Fewer risky approvals.
 
 Transition: "So the close is simple."
 -->
 
 ---
+class: gap
+---
 
 # Close
 
-- Reviewers are us
-- We deserve better signals at decision time
-- Questions?
+I approved a Terraform change.
+It deleted millions of records.
+
+Terraform did exactly what the code said.
+I do not want better reviewers.
+I want better instruments.
+
+Questions?
 
 <!--
-Line: "Reviewers are us. We need better signals to make the hard calls. AI can draft the change.
-We still sign for the blast radius."
-
-Line: "Raise your hand if your boss would accept you blaming Claude?"
+Bring it back to the story.
+The system sets us up to fail.
+Fix the system.
 -->
