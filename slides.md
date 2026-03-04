@@ -18,9 +18,24 @@ html, body {
 .slidev-layout.compact {
   font-size: 0.9em;
 }
+/* Ensure model slide text isn't dimmed */
+.slidev-layout.model p {
+  opacity: 1;
+}
 /* Increase gap between title and body for specific slides */
 .slidev-layout.gap h1 + p {
   margin-top: 1.1em;
+}
+/* Small vertical spacing utility */
+.gap-sm {
+  height: 0.35em;
+}
+/* Subtext styling for Three Realities slide */
+.slidev-layout.model .reality-sub {
+  font-size: 0.85em;
+  color: #9aa3ab;
+  margin-left: 0.6em;
+  margin-top: -0.8em;
 }
 /* Styled quote for emphasis */
 .slidev-page .slidev-layout .quote {
@@ -87,28 +102,45 @@ Transition: "I think of that often, and reviewing Terraform still scares me."
 <div class="quote-cite">— Yogi Berra</div>
 </div>
 
-Terraform reviews are about impact, not syntax.
+
 
 <!--
 Systems grow.
 Diffs grow.
 Confidence drops.
 
+Terraform reviews are about impact, not syntax.
+
 Transition: "So let's name the mental model."
 -->
 
 ---
+class: model gap
+---
 
 # Three Realities at Once
 
-- Intent: HCL diff
-- State: Terraform state
-- Reality: live infra
+Intent
+<div class="reality-sub">(HCL diff)</div>
+
+<div class="gap-sm"></div>
+
+State
+<div class="reality-sub">(terraform.tfstate)</div>
+
+<div class="gap-sm"></div>
+
+Reality
+<div class="reality-sub">(AWS)</div>
 
 <!--
 Three realities.
 One reviewer.
 This is the job.
+
+“HCL tells us what we want.”
+“State tells us what Terraform thinks exists.”
+“Reality is what AWS is actually doing.”
 
 Transition: "HCL gives us intent, but intent is not impact."
 -->
@@ -119,7 +151,7 @@ class: gap
 
 # HCL Shows Intent
 
-Intent alone does not show impact.
+But intent ≠ impact
 
 <!--
 HCL says what we want.
