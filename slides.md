@@ -102,8 +102,6 @@ Transition: "I think of that often, and reviewing Terraform still scares me."
 <div class="quote-cite">— Yogi Berra</div>
 </div>
 
-
-
 <!--
 Systems grow.
 Diffs grow.
@@ -242,7 +240,7 @@ class: gap
 - Wildcard expansion turns `*` into meaningful info
 - Terraform plan shows up in the PR
 
-A real and totally not contrived example:
+A completly real and totally not contrived example:
 
 [`thekbb/shit-bruce-says#17`](https://github.com/thekbb/shit-bruce-says/pull/17)
 
