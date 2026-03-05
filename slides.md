@@ -235,12 +235,12 @@ Transition: "Let me show you one PR where both happen."
 class: gap
 ---
 
-# Live PR Example
+# Example
 
 - Wildcard expansion turns `*` into meaningful info
 - Terraform plan shows up in the PR
 
-A completly real and totally not contrived example:
+A completely real and totally not contrived example:
 
 [`thekbb/shit-bruce-says#17`](https://github.com/thekbb/shit-bruce-says/pull/17)
 
@@ -279,7 +279,7 @@ It deleted millions of records.
 
 Terraform did exactly what the code said.
 I do not want better reviewers.
-I want better instruments.
+I want better tools to help reviewers.
 
 Questions?
 
