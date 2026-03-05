@@ -283,6 +283,10 @@ I want better tools to help reviewers.
 
 Questions?
 
+<div style="margin-top: 0.8em; display: flex; justify-content: flex-end; width: 100%;">
+  <img src="./assets/kbehrens-linkedin-qr.png" alt="Kevin Behrens LinkedIn QR code" style="width: 220px; transform: translateY(-2.2em);" />
+</div>
+
 <!--
 Bring it back to the story.
 The system sets us up to fail.
